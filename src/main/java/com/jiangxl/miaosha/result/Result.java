@@ -21,6 +21,10 @@ public class Result<T> {
 
     }
 
+    public static Result success(){
+       return new Result(CodeMsg.SUCCESS);
+    }
+
     public static <T> Result error(CodeMsg codeMsg){
         return new Result<T>(codeMsg);
     }

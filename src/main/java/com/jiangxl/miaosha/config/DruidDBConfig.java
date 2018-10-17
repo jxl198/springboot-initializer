@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  * @author jiangxl
- * @description
+ * @description 配置druid
  * @date 2018-10-12 9:22
  **/
 @Configuration

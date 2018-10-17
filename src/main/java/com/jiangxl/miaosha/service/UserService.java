@@ -2,6 +2,7 @@ package com.jiangxl.miaosha.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.jiangxl.miaosha.domain.User;
+import com.jiangxl.miaosha.exception.GlobalException;
 
 /**
  * @author jiangxl
@@ -10,5 +11,6 @@ import com.jiangxl.miaosha.domain.User;
  **/
 public interface UserService extends IService<User> {
     boolean insert();
-//    public User getById(Integer id);
+
+    boolean doLogin(String mobile, String password) throws GlobalException;
 }

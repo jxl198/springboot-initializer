@@ -4,6 +4,7 @@ import com.jiangxl.miaosha.domain.User;
 import com.jiangxl.miaosha.result.CodeMsg;
 import com.jiangxl.miaosha.result.Result;
 import com.jiangxl.miaosha.service.UserService;
+import com.jiangxl.miaosha.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ public class DemoController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @RequestMapping("")
     @ResponseBody
@@ -51,5 +54,20 @@ public class DemoController {
     public Result<Boolean> tx() {
        boolean result =userService.insert();
        return Result.success(result);
+    }
+
+    @RequestMapping("/redis/get")
+    @ResponseBody
+    public Result<Object> get(){
+        Object value = redisUtil.get("key1");
+        return Result.success(value);
+    }
+
+    @RequestMapping("/redis/set")
+    @ResponseBody
+    public Result<Boolean> set(){
+        boolean result = redisUtil.set("key2","hello,redis");
+        System.out.println(redisUtil.get("key2"));
+        return Result.success(result);
     }
 }

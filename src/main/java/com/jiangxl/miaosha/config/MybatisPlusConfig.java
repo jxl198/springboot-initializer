@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @author jiangxl
- * @description
+ * @description 配置mybatis plus的分页
  * @date 2018-10-12 9:42
  **/
 @Configuration

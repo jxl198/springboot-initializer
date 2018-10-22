@@ -3,6 +3,7 @@ package com.jiangxl.miaosha.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jiangxl.miaosha.common.Consts;
 import com.jiangxl.miaosha.utils.RedisUtil;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
@@ -134,7 +136,7 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
-        setSerializer(template,factory);//设置序列化工具
+        setSerializer(template, factory);//设置序列化工具
         template.afterPropertiesSet();
         return template;
     }
@@ -144,7 +146,7 @@ public class RedisConfig {
      *
      * @param template
      */
-    private void setSerializer(RedisTemplate<String,Object> template,RedisConnectionFactory factory) {
+    private void setSerializer(RedisTemplate<String, Object> template, RedisConnectionFactory factory) {
         @SuppressWarnings({"rawtypes", "unchecked"})
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();

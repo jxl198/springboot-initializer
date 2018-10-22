@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.jiangxl.miaosha.domain.User;
 import com.jiangxl.miaosha.exception.GlobalException;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author jiangxl
  * @description
@@ -12,5 +14,5 @@ import com.jiangxl.miaosha.exception.GlobalException;
 public interface UserService extends IService<User> {
     boolean insert();
 
-    boolean doLogin(String mobile, String password) throws GlobalException;
+    User doLogin(String mobile, String password,HttpSession session) throws Exception ;
 }

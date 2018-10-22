@@ -7,12 +7,21 @@ package com.jiangxl.miaosha.common;
  **/
 public interface Consts {
 
-    public interface Redis{
-        public static final String ORDER_KEY_PREFIX="ORDER";
-        public static final String USER_KEY_PREFIX="USER";
+    interface Redis {
+        String ORDER_KEY_PREFIX = "ORDER";
+        String USER_KEY_PREFIX = "USER";
 
-        public static final int ORDER_TIMEOUT=1800;
-        public static final int USER_TIMEOUT=1800;
+        int ORDER_TIMEOUT = 1800;
+        int USER_TIMEOUT = 1800;
 
     }
+
+    interface UserConstant {
+        String SESSION_TOKEN_NAME = "SESSION_TOKEN_NAME";
+        int SESSION_EXPIRED_TIME = 1200;//半个小时
+        String COOKIE_TOKEN_NAME="COOKIE_TOKEN_NAME";
+        int COOKIE_EXPIREE_TIME=3600;
+    }
+
+
 }

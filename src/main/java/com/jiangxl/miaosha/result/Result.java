@@ -1,11 +1,13 @@
 package com.jiangxl.miaosha.result;
 
+import java.io.Serializable;
+
 /**
  * @author jiangxl
  * @description
  * @date 2018-09-07 15:48
  **/
-public class Result<T> {
+public class Result<T>  implements Serializable {
     private int code;
     private String msg;
     private T data;

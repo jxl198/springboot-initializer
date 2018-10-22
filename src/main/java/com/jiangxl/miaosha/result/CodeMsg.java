@@ -11,12 +11,12 @@ public class CodeMsg {
     public static final CodeMsg SUCCESS=new CodeMsg(0,"success");
 
     public static final CodeMsg SERVER_ERROR=new CodeMsg(500100,"服务端异常");
-    public static final CodeMsg PASSWORD_EMPTY=new CodeMsg(500101,"登录密码不能为空");
-    public static final CodeMsg MOBILE_EMPTY=new CodeMsg(500102,"手机号码不能为空");
-    public static final CodeMsg MOBILE_NOT_VALID=new CodeMsg(500103,"手机号码格式不正确");
+    public static final CodeMsg VALID_EXCEPTION=new CodeMsg(500101,"校验参数异常：%s");
+    //    public static final CodeMsg PASSWORD_EMPTY=new CodeMsg(500101,"登录密码不能为空");
+//    public static final CodeMsg MOBILE_EMPTY=new CodeMsg(500102,"手机号码不能为空");
+//    public static final CodeMsg MOBILE_NOT_VALID=new CodeMsg(500103,"手机号码格式不正确");
     public static final CodeMsg USER_NOT_EXIST=new CodeMsg(500104,"该用户不存在");
     public static final CodeMsg PASSWORD_NOT_VALID=new CodeMsg(500105,"用户密码不正确");
-    public static final CodeMsg VALID_EXCEPTION=new CodeMsg(500106,"校验参数异常：%s");
 
 
     private CodeMsg(int code, String msg) {

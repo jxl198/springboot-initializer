@@ -4,8 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-//@MapperScan("comm.jiangxl.miaosha.dao")
-//@EnableTransactionManagement
 public class MiaoshaApplication {
 
 	public static void main(String[] args) {

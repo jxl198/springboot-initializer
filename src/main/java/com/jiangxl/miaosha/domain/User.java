@@ -1,5 +1,6 @@
 package com.jiangxl.miaosha.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Date;
  * @description
  * @date 2018-10-12 9:51
  **/
-public class User {
+public class User implements Serializable {
     private Long id;
     private String nickname;
     private String password;

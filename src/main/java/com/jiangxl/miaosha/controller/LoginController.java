@@ -1,5 +1,6 @@
 package com.jiangxl.miaosha.controller;
 
+import com.jiangxl.miaosha.common.Consts;
 import com.jiangxl.miaosha.domain.User;
 import com.jiangxl.miaosha.result.CodeMsg;
 import com.jiangxl.miaosha.result.Result;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 /**
@@ -35,10 +37,12 @@ public class LoginController {
 
     @RequestMapping(value = "do_login", method = RequestMethod.POST)
     @ResponseBody
-    public Result doLogin(@Valid LoginVo loginVo) {
+    public Result doLogin(@Valid LoginVo loginVo, HttpSession session) throws Exception {
         String mobile = loginVo.getMobile();
         String password = loginVo.getPassword();
-        userService.doLogin( mobile, password);
+        User user = userService.doLogin(mobile, password,session);
+
+        //session.setAttribute(Consts.UserConstant.SESSION_TOKEN_NAME, user);  //设置session
         return Result.success();
     }
 }

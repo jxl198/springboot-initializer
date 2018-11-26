@@ -2,7 +2,7 @@ package com.jiangxl.miaosha.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jiangxl.miaosha.common.Consts;
-import com.jiangxl.miaosha.dao.UserDao;
+import com.jiangxl.miaosha.dao.UserMapper;
 import com.jiangxl.miaosha.domain.User;
 import com.jiangxl.miaosha.exception.GlobalException;
 import com.jiangxl.miaosha.result.CodeMsg;
@@ -20,9 +20,9 @@ import javax.servlet.http.HttpSession;
  * @date 2018-10-12 9:55
  **/
 @Service
-public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
-    private UserDao userDao;
+    private UserMapper userMapper;
 
 
     @Override
@@ -34,14 +34,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         User user2 =new User();
         user2.setId(1L);
       //  user2.setName("hell");
-        userDao.insert(user1);
-        userDao.insert(user2);
+        userMapper.insert(user1);
+        userMapper.insert(user2);
         return true;
     }
 
     @Override
     public User doLogin(String mobile, String password,HttpSession session) throws Exception {
-        User user = userDao.selectById(mobile);
+        User user = userMapper.selectById(mobile);
         if (user == null) {
             throw new GlobalException(CodeMsg.USER_NOT_EXIST);
 

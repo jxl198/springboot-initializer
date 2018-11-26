@@ -28,6 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Result exceptionHandler(HttpServletRequest request, Exception e) {
+        e.printStackTrace();
         if (e instanceof BindException) {//校验异常
             BindException be = (BindException) e;
             List<ObjectError> errorList = be.getAllErrors();

@@ -11,8 +11,8 @@ import java.sql.Driver;
  * @description
  * @date 2018-10-12 9:52
  **/
-@Mapper
-public interface UserDao extends BaseMapper<User> {
+
+public interface UserMapper extends BaseMapper<User> {
 
 //    @Select("select id,name from user where id =#{id}")
 //    public User getById(@Param("id") Integer id);

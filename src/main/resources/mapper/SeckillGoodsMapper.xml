@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiangxl.miaosha.dao.SeckillGoodsMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiangxl.miaosha.domain.SeckillGoods">
+        <id column="ID" property="id"/>
+        <result column="GOODS_ID" property="goodsId"/>
+        <result column="SECKILL_PRICE" property="seckillPrice"/>
+        <result column="STOCK_COUNT" property="stockCount"/>
+        <result column="START_DATE" property="startDate"/>
+        <result column="END_TIME" property="endTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, GOODS_ID AS goodsId, SECKILL_PRICE AS seckillPrice, STOCK_COUNT AS stockCount, START_DATE AS startDate, END_TIME AS endTime
+    </sql>
+
+    <update id="updateStockById" parameterType="long">
+        update seckill_goods set stock_count=stock_count-1 where id=#{id}
+
+    </update>
+
+</mapper>

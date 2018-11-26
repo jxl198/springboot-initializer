@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiangxl.miaosha.dao.GoodsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiangxl.miaosha.domain.Goods">
+        <id column="ID" property="id"/>
+        <result column="GOODS_NAME" property="goodsName"/>
+        <result column="GOODS_TITLE" property="goodsTitle"/>
+        <result column="GOODS_IMG" property="goodsImg"/>
+        <result column="GOODS_DETAIL" property="goodsDetail"/>
+        <result column="GOODS_PRICE" property="goodsPrice"/>
+        <result column="GOODS_STOCK" property="goodsStock"/>
+    </resultMap>
+
+    <resultMap id="GoodsVoResultMap" type="com.jiangxl.miaosha.vo.GoodsVo" extends="BaseResultMap">
+        <result column="STOCK_COUNT" property="stockCount"/>
+        <result column="START_DATE" property="startDate"/>
+        <result column="END_TIME" property="endTime"/>
+        <result column="SECKILL_PRICE" property="seckillPrice"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, GOODS_NAME AS goodsName, GOODS_TITLE AS goodsTitle, GOODS_IMG AS goodsImg, GOODS_DETAIL AS goodsDetail, GOODS_PRICE AS goodsPrice, GOODS_STOCK AS goodsStock
+    </sql>
+
+    <select id="queryGoodsVoList" resultMap="GoodsVoResultMap">
+		select a.ID,a.GOODS_NAME ,a.GOODS_TITLE,
+		a.GOODS_IMG,a.GOODS_DETAIL,a.GOODS_PRICE,a.GOODS_STOCK,
+		b.STOCK_COUNT,b.START_DATE,b.SECKILL_PRICE,
+		b.END_TIME from goods a ,seckill_goods b
+		where a.id = b.goods_id
+
+	</select>
+
+    <select id="getGoodsVoById" resultMap="GoodsVoResultMap" parameterType="long">
+
+      select a.ID,a.GOODS_NAME ,a.GOODS_TITLE,
+		a.GOODS_IMG,a.GOODS_DETAIL,a.GOODS_PRICE,a.GOODS_STOCK,
+		b.STOCK_COUNT,b.START_DATE,b.SECKILL_PRICE,
+		b.END_TIME from goods a ,seckill_goods b
+		where a.id = b.goods_id and a.id=#{goodsId}
+    </select>
+
+</mapper>

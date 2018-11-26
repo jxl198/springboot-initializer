@@ -3,8 +3,36 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>hello</title>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/css/bootstrap.min.css}"/>
+    <script type="text/javascript" th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- common.js -->
+    <script type="text/javascript" th:src="@{/js/common.js}"></script>
 </head>
 <body>
-<p th:text="'用户姓名:'+${user.nickname}"></p>
+<div class="panel panel-default">
+    <div class="panel-heading">秒杀商品列表</div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>商品名称</th>
+            <th>商品图片</th>
+            <th>商品原价</th>
+            <th>秒杀价</th>
+            <th>库存数量</th>
+            <th>详情</th>
+        </tr>
+        <tr th:each="prod : ${goodsList}">
+            <td th:text="${prod.goodsName}">Onions</td>
+            <td><img th:src="@{${prod.goodsImg}}" th:width="100" th:height="100"></td>
+            <td th:text="${prod.goodsPrice}"></td>
+            <td th:text="${prod.getSeckillPrice()}"></td>
+            <td th:text="${prod.getStockCount()}"></td>
+            <td><a th:href="'/goods_detail.htm?goodsId='+${prod.id}">详情</a></td>
+
+        </tr>
+    </table>
+</div>
 </body>
 </html>

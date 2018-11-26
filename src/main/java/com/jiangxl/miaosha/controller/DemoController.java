@@ -1,6 +1,7 @@
 package com.jiangxl.miaosha.controller;
 
 import com.jiangxl.miaosha.domain.User;
+import com.jiangxl.miaosha.rabbitmq.MQSender;
 import com.jiangxl.miaosha.result.CodeMsg;
 import com.jiangxl.miaosha.result.Result;
 import com.jiangxl.miaosha.service.UserService;
@@ -24,10 +25,29 @@ public class DemoController {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    private MQSender sender;
+
     @RequestMapping("")
     @ResponseBody
     public String index() {
         return "Hello World!";
+    }
+
+    @RequestMapping("mq")
+    @ResponseBody
+    public String mq() {
+        sender.send("this is a first mq ");
+        return "ok";
+    }
+
+    @RequestMapping("mq/topic")
+    @ResponseBody
+    public String mqTopic() {
+        //sender.sendTopic1("topic1");
+        sender.sendTopic2("topic2");
+
+        return "ok";
     }
 
     @RequestMapping("/hello")

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiangxl.miaosha.dao.OrderInfoMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiangxl.miaosha.domain.OrderInfo">
+        <id column="ID" property="id"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="GOODS_ID" property="goodsId"/>
+        <result column="DELIVERY_ADDR_ID" property="deliveryAddrId"/>
+        <result column="GOODS_NAME" property="goodsName"/>
+        <result column="GOODS_COUNT" property="goodsCount"/>
+        <result column="GOODS_PRICE" property="goodsPrice"/>
+        <result column="ORDER_CHANNEL" property="orderChannel"/>
+        <result column="STATUS" property="status"/>
+        <result column="CREATE_DATE" property="createDate"/>
+        <result column="PAY_DATE" property="payDate"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, USER_ID AS userId, GOODS_ID AS goodsId, DELIVERY_ADDR_ID AS deliveryAddrId, GOODS_NAME AS goodsName, GOODS_COUNT AS goodsCount, GOODS_PRICE AS goodsPrice, ORDER_CHANNEL AS orderChannel, STATUS AS status, CREATE_DATE AS createDate, PAY_DATE AS payDate
+    </sql>
+
+    <insert id="saveOrderInfo" parameterType="com.jiangxl.miaosha.domain.OrderInfo" keyProperty="id" keyColumn="ID"
+            useGeneratedKeys="true">
+		insert into order_info (USER_ID,GOODS_ID,GOODS_NAME,GOODS_COUNT,GOODS_PRICE,ORDER_CHANNEL,
+		STATUS,CREATE_DATE)values(#{userId},#{goodsId},#{goodsName},#{goodsCount},#{goodsPrice},
+		#{orderChannel},#{status},#{createDate})
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+</mapper>

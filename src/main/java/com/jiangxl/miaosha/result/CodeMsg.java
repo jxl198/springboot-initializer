@@ -17,7 +17,18 @@ public class CodeMsg {
 //    public static final CodeMsg MOBILE_NOT_VALID=new CodeMsg(500103,"手机号码格式不正确");
     public static final CodeMsg USER_NOT_EXIST=new CodeMsg(500104,"该用户不存在");
     public static final CodeMsg PASSWORD_NOT_VALID=new CodeMsg(500105,"用户密码不正确");
+    public static final CodeMsg USER_NOT_LOGIN=new CodeMsg(500106,"用户未登录");
 
+    public static final CodeMsg SESSION_ERROR=new CodeMsg(500106,"session不存在或已失效");
+    public static final CodeMsg PATH_ILLEGAL=new CodeMsg(500107,"请求非法");
+
+
+    // 秒杀错误提示5005xx
+    public static final CodeMsg STOCK_NOT_ENOUGH=new CodeMsg(500501,"商品库存不足");
+    public static final CodeMsg REPEAT_SECKILL=new CodeMsg(500502,"重复秒杀");
+
+    //订单错误提示5006XX
+    public static final CodeMsg ORDER_NOT_EXIST=new CodeMsg(500601,"订单不存在");
 
     private CodeMsg(int code, String msg) {
         this.code = code;

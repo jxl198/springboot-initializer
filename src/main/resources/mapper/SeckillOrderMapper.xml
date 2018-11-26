@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiangxl.miaosha.mapper.SeckillOrderMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.jiangxl.miaosha.domain.SeckillOrder">
+        <id column="ID" property="id"/>
+        <result column="USER_ID" property="userId"/>
+        <result column="ORDER_ID" property="orderId"/>
+        <result column="GOODS_ID" property="goodsId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, USER_ID AS userId, ORDER_ID AS orderId, GOODS_ID AS goodsId
+    </sql>
+
+</mapper>

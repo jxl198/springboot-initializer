@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>hello</title>
+    <script type="text/javascript" src="/js/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js"></script>
+    <!-- common.js -->
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/layer/layer.js"></script>
+</head>
+<body>
+<div class="panel panel-default">
+    <div class="panel-heading">秒杀订单详情</div>
+    <table class="table" id="goodsDetail">
+        <tr>
+            <td>商品名称</td>
+            <td colspan="3" id="goodsName"></td>
+        </tr>
+        <tr>
+            <td>商品图片</td>
+            <td colspan="3"><img id="goodsImg" width="200" height="200"/></td>
+        </tr>
+        <tr>
+            <td>订单价格</td>
+            <td colspan="3" id="goodsPrice"></td>
+        </tr>
+        <tr>
+            <td>下单时间</td>
+            <td colspan="3" id="createDate"></td>
+        </tr>
+        <tr>
+            <td>订单状态</td>
+            <td colspan="2">
+                <span id="orderStatus"></span>
+
+            </td>
+            <td>
+                <button class="btn btn-primary btn-block" type="submit" id="payButton">立即支付</button>
+            </td>
+        </tr>
+        <tr>
+            <td>收货人</td>
+            <td colspan="2">XXX  18812341234</td>
+        </tr>
+        <tr>
+            <td>收货地址</td>
+            <td colspan="2">北京市昌平区回龙观龙博一区</td>
+        </tr>
+    </table>
+
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+            getOrderDetail();
+    });
+
+    function getOrderDetail(){
+        var orderId= g_getQueryString("orderId");
+        $.ajax({
+            url:"/order/detail",
+            type:"GET",
+            data:{"orderId":orderId},
+            success:function(response){
+                if(response.code==0){
+                    renderData(response.data);
+                }else{
+                    layer.msg(response.msg);
+                }
+            },
+            error:function(){
+
+            }
+        });
+
+    }
+
+    function renderData(data){
+        var goodsVo = data.goodsVo;
+        var orderInfo = data.orderInfo;
+        $("#goodsImg").attr("src",goodsVo.goodsImg);
+        $("#goodsName").html(goodsVo.goodsName);
+        $("#goodsPrice").html(orderInfo.goodsPrice);
+        var status=orderInfo.status;
+        var orderStatus="";
+        if(status=="0"){
+            orderStatus="未支付"
+        }else if (status=="1"){
+            orderStatus="待发货";
+        }else if (status=="2"){
+            orderStatus="已发货";
+        }else if (status=="3"){
+            orderStatus="已收货";
+        }else if (status=="4"){
+            orderStatus="已退宽";
+        }else if (status=="5"){
+            orderStatus="已完成";
+        }
+        $("#orderStatus").html(orderStatus);
+        $("#createDate").html(new Date(orderInfo.createDate).format("yyyy-MM-dd hh:mm:ss"))
+    }
+</script>
+</html>

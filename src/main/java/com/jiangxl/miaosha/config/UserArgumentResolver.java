@@ -14,22 +14,26 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author jiangxl
- * @description  定义参数为User类型的解析器
+ * @description 定义参数为User类型的解析器
  * @date 2018-10-22 11:07
  **/
 @Component
-public class UserArgumentResolver  implements HandlerMethodArgumentResolver {
+public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
         Class<?> clazz = parameter.getParameterType();
-        return clazz==User.class;
+        return clazz == User.class;
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-        HttpServletRequest request= (HttpServletRequest) webRequest.getNativeRequest();
+        HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
         HttpSession session = request.getSession();
-        User user = (User)session.getAttribute(Consts.UserConstant.SESSION_TOKEN_NAME);
-        return user;
+        Object obj = session.getAttribute(Consts.UserConstant.SESSION_TOKEN_NAME);
+        if (obj != null) {
+            User user = (User) obj;
+            return user;
+        }
+        return null;
     }
 }

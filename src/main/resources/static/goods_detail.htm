@@ -73,7 +73,7 @@
         $.ajax({
             url:"/goods/get_path",
             type:"GET",
-            data:{"goodsId":goodsId},
+            data:{"goodsId":goodsId,"verifyCode":$("#verifyCode").val()},
             success:function(response){
                 if(response.code==0){
                     var path = response.data;

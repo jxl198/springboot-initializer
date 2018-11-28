@@ -21,6 +21,8 @@ public class CodeMsg {
 
     public static final CodeMsg SESSION_ERROR=new CodeMsg(500106,"session不存在或已失效");
     public static final CodeMsg PATH_ILLEGAL=new CodeMsg(500107,"请求非法");
+    public static final CodeMsg ACCESS_LIMIT_ERROR=new CodeMsg(500108,"请求太频繁");
+
 
 
     // 秒杀错误提示5005xx

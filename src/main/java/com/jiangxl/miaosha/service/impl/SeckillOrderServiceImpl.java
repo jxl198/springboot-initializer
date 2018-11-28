@@ -123,13 +123,9 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
         for (int i = 0; i < 30; i++) {
             int x = random.nextInt(width);
             int y = random.nextInt(height);
-//            int xl = random.nextInt(12);
-//            int yl = random.nextInt(12);
             graphics.drawOval(x, y, 0, 0);
         }
-//        int red = 0;
-//        int green = 0;
-//        int black = 0;
+
         String verifyCode = generateVerifyCode(random);
         graphics.setColor(new Color(random.nextInt(255), random.nextInt(255), random.nextInt(255)));
         graphics.drawString(verifyCode, 8, 13);
@@ -142,9 +138,20 @@ public class SeckillOrderServiceImpl extends ServiceImpl<SeckillOrderMapper, Sec
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return bufferedImage;
 
+    }
+
+    @Override
+    public boolean checkVerifyCode(User user, Long goodsId, String verifyCode) {
+        if(StringUtils.isBlank(verifyCode)){
+            return false;
+        }
+        Object redisVerifyCode= redisUtil.get(Consts.Redis.SECKILL_VERIFY_CODE + "_" + user.getId() + "_" + goodsId);
+        if(redisVerifyCode!=null && StringUtils.equals(verifyCode,redisVerifyCode.toString())){
+            return true;
+        }
+        return false;
     }
 
     private static char[] chars = {'+', '-', '*'};

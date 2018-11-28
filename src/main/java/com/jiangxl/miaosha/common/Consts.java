@@ -16,6 +16,8 @@ public interface Consts {
         String SECKILL_RANDOM_KEY="SECKILL_RANDOM_KEY";
 
         String SECKILL_VERIFY_CODE ="SECKILL_VERIFY_CODE";
+        String ACCESS_LIMIT_COUNT ="ACCESS_LIMIT_COUNT";
+
 
 
         int ORDER_TIMEOUT = 1800;

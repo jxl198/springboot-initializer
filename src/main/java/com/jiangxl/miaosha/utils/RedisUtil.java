@@ -1,5 +1,6 @@
 package com.jiangxl.miaosha.utils;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
@@ -24,8 +25,9 @@ public class RedisUtil {
 
     /**
      * 设置过期时间
+     *
      * @param key
-     * @param time  小于等于0为永不过期
+     * @param time 小于等于0为永不过期
      * @return
      */
     public boolean expire(String key, long time) {
@@ -91,6 +93,26 @@ public class RedisUtil {
         return key == null ? null : redisTemplate.opsForValue().get(key);
     }
 
+
+    public <T> T get(String key, Class<T> clazz) {
+        Object obj = get(key);
+        if (obj == null) {
+            return null;
+        }
+        if (clazz == Integer.class) {
+            return (T) Integer.valueOf(obj.toString());
+        } else if (clazz == String.class) {
+            return (T) obj.toString();
+        } else if (clazz == Double.class) {
+            return (T) Double.valueOf(obj.toString());
+        } else if (clazz == Long.class) {
+            return (T) Long.valueOf(obj.toString());
+        } else {
+            return (T) JSON.toJavaObject(JSON.parseObject(obj.toString()), clazz);
+        }
+
+    }
+
     /**
      * 普通缓存放入
      *
@@ -134,8 +156,8 @@ public class RedisUtil {
     /**
      * 递增
      *
-     * @param key 键
-     * @param  delta  要增加几(大于0)
+     * @param key   键
+     * @param delta 要增加几(大于0)
      * @return
      */
     public long incr(String key, long delta) {
@@ -148,8 +170,8 @@ public class RedisUtil {
     /**
      * 递减
      *
-     * @param key 键
-     * @param delta  要减少几(小于0)
+     * @param key   键
+     * @param delta 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta) {

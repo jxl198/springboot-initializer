@@ -1,6 +1,7 @@
 package com.jiangxl.miaosha.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jiangxl.miaosha.annotation.AccessLimit;
 import com.jiangxl.miaosha.common.Consts;
 import com.jiangxl.miaosha.domain.User;
 import com.jiangxl.miaosha.rabbitmq.MQSender;
@@ -108,6 +109,7 @@ public class GoodsController implements InitializingBean {
         return Result.success(goodsDetailVo);
     }
 
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @RequestMapping(value = "/{path}/do_sec_kill", method = RequestMethod.POST)
     @ResponseBody
     public Result<Integer> doSeckill(User user, @RequestParam("goodsId") Long goodsId,
@@ -119,6 +121,12 @@ public class GoodsController implements InitializingBean {
         if (!seckillOrderService.checkPath(user.getId(), goodsId, pathKey)) {
             return Result.error(CodeMsg.PATH_ILLEGAL);
         }
+        //判断重复秒杀
+        Object seckillOrder = redisUtil.get(Consts.Redis.ORDER_KEY_PREFIX+"_"+user.getId()+"_"+goodsId);
+        if(seckillOrder!=null){
+            return Result.error(CodeMsg.REPEAT_SECKILL);
+        }
+
         //查看是否卖完
         if (localMap.get(Consts.LocalConstant.SELL_OUT_PREFIX + "_" + goodsId)) {
             return Result.error(CodeMsg.STOCK_NOT_ENOUGH);
@@ -174,13 +182,25 @@ public class GoodsController implements InitializingBean {
 
     }
 
+    /**
+     * 隐藏请求地址
+     *
+     * @param user
+     * @param goodsId
+     * @return
+     */
+    @AccessLimit(seconds = 5,maxCount = 5,needLogin = true)
     @RequestMapping("get_path")
     @ResponseBody
-    public Result<String> getPath(User user, Long goodsId) {
+    public Result<String> getPath(User user, Long goodsId, @RequestParam(value = "verifyCode", required = false) String verifyCode) {
         //查询
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
-        }
+    }
+        if(!seckillOrderService.checkVerifyCode(user,goodsId,verifyCode)){
+        return   Result.error(CodeMsg.PATH_ILLEGAL);
+    }
+
         return Result.success(seckillOrderService.getPath(user.getId(), goodsId));
     }
 

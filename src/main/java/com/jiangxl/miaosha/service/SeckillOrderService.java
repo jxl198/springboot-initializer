@@ -28,4 +28,6 @@ public interface SeckillOrderService extends IService<SeckillOrder> {
     boolean checkPath(long userId,long goodsId,String pathKey);
 
     BufferedImage createImg(Long id, Long goodsId);
+
+    boolean checkVerifyCode(User user, Long goodsId, String verifyCode);
 }
